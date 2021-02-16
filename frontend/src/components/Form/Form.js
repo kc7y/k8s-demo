@@ -18,7 +18,7 @@ class PostForm extends Component {
         const subject = this.subject.value;
         const author = this.author.value;
         const message = this.message.value;
-        await axios.post('http://localhost:3001/post', { subject, author, message });
+        await axios.post('http://chowdhary.ca:30000/post', { subject, author, message });
         this.subject.value = '';
         this.author.value = '';
         this.message.value = '';

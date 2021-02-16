@@ -23,7 +23,7 @@ class Display extends Component {
     }
 
     async reloadData() {
-        const res = await axios.get('http://localhost:3001/posts');
+        const res = await axios.get('http://chowdhary.ca:30000/posts');
         this.setState({ posts: res.data });
     }
 
