@@ -5,55 +5,35 @@ metadata:
   labels:
     app: k8s-demo
 spec:
+  type: NodePort
   ports:
   - port: 3001
     name: web
+    targetPort: http
+    protocol: TCP
   selector:
-    app: backend
+    app: k8s-demo
+    tier: backend
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: web
+  name: backend
 spec:
   selector:
     matchLabels:
-      app: k8s-demo
-  serviceName: "backend"
+      app:  k8s-demo
+      tier: backend
   replicas: 1
   template:
     metadata:
       labels:
         app: k8s-demo
+        tier: backend
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
-      - name: backend
-        image: krishchow/k8s-backend:latest
-        ports:
-        - containerPort: 3001
-          name: web
-        volumeMounts:
-        - name: file-data
-          mountPath: /data
-        env:
-        - name: PGHOST
-          value: my-release-postgresql.default.svc.cluster.local
-        - name: PGPASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: my-release-postgresql
-              key: postgresql-password
-        - name: PGUSER
-          value: postgres
-        - name: PGDATABASE
-          value: postgres
-  volumeClaimTemplates:
-  - metadata:
-      name: file-data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
-      resources:
-        requests:
-          storage: 1Gi
+        - name:  k8s-demo
+          image: "krishchow/k8s-backend:latest"
+          ports:
+            - name: http
+              containerPort: 3001
