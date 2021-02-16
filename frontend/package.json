@@ -19,8 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "d_build": "docker build . -t test",
-    "d_start": "docker run -v $(pwd):/app -p 3000:3000 test || true"
+    "d_build": "docker build . -t krishchow/k8s-frontend:latest",
+    "d_push": "docker push krishchow/k8s-frontend:latest"
   },
   "eslintConfig": {
     "extends": [
