@@ -27,6 +27,21 @@ const client = new Pool({
     port: process.env.PGPORT,
 });
 
+const create = `CREATE TABLE posts (
+    postid SERIAL PRIMARY KEY,
+    subject VARCHAR(100),
+    message VARCHAR(100),
+    author VARCHAR(100)
+);`;
+
+client.on('connect', async (client) => {
+    try {
+        await client.query(create);
+    } catch(e) {
+        console.log(e);
+    }
+});
+
 app.get('/posts', async (req, res) => {
     try {
         const response = await client.query('SELECT * FROM posts;');
