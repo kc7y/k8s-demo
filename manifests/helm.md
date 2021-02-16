@@ -8,4 +8,4 @@
 # Run Deployment
 
 1. `kubectl apply -f deployment.yaml`
-2. 
+2. `kubectl port-forward --namespace default svc/backend 3001:3001 &`
