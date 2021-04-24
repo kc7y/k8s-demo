@@ -1,6 +1,5 @@
 const express = require("express");
 const { Pool } = require("pg");
-const bodyParser = require("body-parser");
 const process = require('process');
 const cors = require('cors');
 
@@ -10,10 +9,10 @@ const app = express();
 app.use(cors());
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 
 // parse application/json
-app.use(bodyParser.json());
+app.use(express.json());
 
 // set the port for the Node application
 const port = process.env.PORT;
@@ -40,6 +39,7 @@ client.on('connect', async (client) => {
     } catch(e) {
         console.log(e);
     }
+    console.log('connected')
 });
 
 app.get('/posts', async (req, res) => {

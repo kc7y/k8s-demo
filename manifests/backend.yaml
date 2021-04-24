@@ -5,13 +5,12 @@ metadata:
   labels:
     app: k8s-demo
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
-  - port: 3001
+  - port: 3000
     name: web
     targetPort: http
     protocol: TCP
-    nodePort: 30000
   selector:
     app: k8s-demo
     tier: backend
@@ -37,10 +36,10 @@ spec:
           image: "krishchow/k8s-backend:latest"
           ports:
             - name: http
-              containerPort: 3001
+              containerPort: 3000
           env:
           - name: PGHOST
-            value: my-release-postgresql.default.svc.cluster.local
+            value: my-release-postgresql.default.svc.cluster.local # my-release-postgresql would also work
           - name: PGPASSWORD
             valueFrom:
               secretKeyRef:
@@ -50,3 +49,5 @@ spec:
             value: postgres
           - name: PGDATABASE
             value: postgres
+          - name: PORT
+            value: "3000"

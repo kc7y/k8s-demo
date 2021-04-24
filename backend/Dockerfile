@@ -18,4 +18,4 @@ ENV PGPORT=5432
 
 COPY . .
 
-CMD [ "npm", "start" ]
+CMD [ "node", "app.js" ]

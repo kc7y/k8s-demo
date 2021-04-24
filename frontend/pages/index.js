@@ -4,20 +4,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
-import './App.css';
-
 import PostForm from './components/Form/Form';
 import Display from './components/Display/Display';
 
 class App extends Component { 
     constructor(props) {
         super(props);
-        this.state = { force: false };
+        this.state = { force: false, BACKEND_URL: props.BACKEND_URL };
     }
 
     render() { 
         return (
-            <div className="App">
+            <div className="App" style={{backgroundColor: "#282c34", minHeight: '100vh'}}>
                 <Container fluid>
                     <Row>
                         <Col className="text-center">
@@ -26,12 +24,12 @@ class App extends Component {
                     </Row>
                     <Row>
                         <Col className="text-center">
-                            <PostForm></PostForm>
+                            <PostForm BACKEND_URL={this.state.BACKEND_URL}></PostForm>
                         </Col>
                     </Row>
                     <Row>
                         <Col className="text-center">
-                            <Display></Display>
+                            <Display BACKEND_URL={this.state.BACKEND_URL}></Display>
                         </Col>
                     </Row>
                 </Container>
@@ -41,3 +39,8 @@ class App extends Component {
 } 
 
 export default App;
+
+// This gets called on every request
+export async function getServerSideProps() {
+    return { props: { BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL } }
+}

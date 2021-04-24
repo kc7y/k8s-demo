@@ -2,10 +2,10 @@ FROM node:alpine
 
 WORKDIR /app
 
-RUN npm install -g serve
+COPY . .
 
-EXPOSE 5000
+RUN "npm" "install"
 
-COPY build build
+RUN "npm" "run" "build"
 
-CMD [ "serve", "-s", "build" ]
+CMD [ "npm", "start" ]

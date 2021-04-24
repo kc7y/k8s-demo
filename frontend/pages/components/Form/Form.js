@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import getConfig from 'next/config'
 
 import { Form, Button } from 'react-bootstrap';
 
 class PostForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { color: '#4cb96b' };
+        this.state = { color: '#4cb96b', BACKEND_URL: props.BACKEND_URL };
         this.subject = null;
         this.author = null;
         this.message = null;
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
     async handleSubmit() {
         const subject = this.subject.value;
         const author = this.author.value;
         const message = this.message.value;
-        await axios.post('http://chowdhary.ca:30000/post', { subject, author, message });
+        await axios.post(`http://${this.state.BACKEND_URL}:3000/post`, { subject, author, message });
         this.subject.value = '';
         this.author.value = '';
         this.message.value = '';
@@ -44,4 +44,4 @@ class PostForm extends Component {
 }
 
 // Exporting the component 
-export default PostForm; 
+export default PostForm;

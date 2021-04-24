@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import getConfig from 'next/config'
 
 import { Card, Container, Row, Col } from 'react-bootstrap';
 
 class Display extends Component {
     constructor(props) {
         super(props);
-        this.state = { posts: [] };
+        this.state = { posts: [], BACKEND_URL: props.BACKEND_URL };
         this.interval = null;
     }
 
@@ -15,7 +16,7 @@ class Display extends Component {
         this.reloadData();
         this.interval = setInterval(() => {
             this.reloadData();
-        }, 2000);
+        }, 1000);
     }
 
     componentWillUnmount() {
@@ -23,7 +24,7 @@ class Display extends Component {
     }
 
     async reloadData() {
-        const res = await axios.get('http://chowdhary.ca:30000/posts');
+        const res = await axios.get(`http://${this.state.BACKEND_URL}:3000/posts`);
         this.setState({ posts: res.data });
     }
 

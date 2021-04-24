@@ -5,13 +5,12 @@ metadata:
   labels:
     app: k8s-demo
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
-  - port: 5000
+  - port: 8080
     name: web
     targetPort: http
     protocol: TCP
-    nodePort: 30001
   selector:
     app: k8s-demo
     tier: frontend
@@ -35,6 +34,10 @@ spec:
       containers:
         - name:  k8s-demo
           image: "krishchow/k8s-frontend:latest"
+          imagePullPolicy: Always
           ports:
             - name: http
-              containerPort: 5000
+              containerPort: 8080
+          env:
+          - name: NEXT_PUBLIC_BACKEND_URL
+            value: "127.0.0.1"
