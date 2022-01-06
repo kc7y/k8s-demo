@@ -8,10 +8,11 @@
 ## Helm for Postgres
 
 1. [Install Helm](https://helm.sh/docs/intro/install/) (`brew install helm` on osx)
-2. `helm repo add bitnami https://charts.bitnami.com/bitnami`
-3. `helm repo update`
-4. `helm install my-release bitnami/postgresql`
-5. `k get services`
+2. `helm init`
+3. `helm repo add bitnami https://charts.bitnami.com/bitnami`
+4. `helm repo update`
+5. `helm install my-release bitnami/postgresql`
+6. `k get services`
 
 ## Run Deployment
 
