@@ -10,13 +10,13 @@
 1. [Install Helm](https://helm.sh/docs/intro/install/) (`brew install helm` on osx)
 2. `helm init`
 3. `helm repo add bitnami https://charts.bitnami.com/bitnami`
-4. `helm repo update`
-5. `helm install my-release bitnami/postgresql`
-6. `k get services`
+5. `helm repo update`
+6. `helm install stable/postgresql -n my-release`
+7. `k get services`
 
 ## Run Deployment
 
 1. `kubectl apply -f manifests/backend.yaml`
-2. Update the svc url in manifests/frontend.yaml
+2. Update the svc url in manifests/frontend.yaml (if you need to)
 3. `kubectl apply -f manifests/frontend.yaml`
 
